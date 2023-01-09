@@ -1,20 +1,20 @@
 {
   "development": {
     "username": "rahul",
-    "password": "gupta01",
-    "database": "wd-todo-dev",
+    "password": "password",
+    "database": "vote_db",
     "host": "127.0.0.1",
-    "dialect": "rahul"
+    "dialect": "postgres"
   },
   "test": {
     "username": "rahul",
-    "password": "gupta01",
-    "database": "wd-todo-test",
+    "password": "password",
+    "database": "vote_db_test",
     "host": "127.0.0.1",
     "dialect": "rahul"
   },
   "production": {
     "use_env_variable": "DATABASE_URL",
-    "dialect": "rahul" 
-   }
+    "dialect": "rahul"
+  }
 }
