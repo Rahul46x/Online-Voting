@@ -31,7 +31,7 @@
         }
     </script>
   </head>
-  <body class="bg-gradient-to-tl from-gray-200 to-green-500 min-h-screen w-full">
+  <body class="bg-gradient-to-tl from-gray-300 to-green-500 min-h-screen w-full">
     <div class="flex justify-center text-blue-800">
       <%- include ('updatedHeader', {username: username}) %>
     </div>
@@ -42,11 +42,11 @@
           ><%= election.name %></a
         >
         <div class="flex gap-2 pt-6">
-            <p class="flex items-center text-gray-600">Question:</p>
+            <p class="flex items-center text-gray-500">Question:</p>
             <p class="text-2xl"><%= question.title %></p>
         </div>
         <div class="flex gap-2">
-            <p class="flex items-center text-gray-600">Description:</p>
+            <p class="flex items-center text-gray-500">Description:</p>
             <p class="text-xl"><%= question.description %></p>
         </div>
 
@@ -71,7 +71,7 @@
               <div class="flex justify-center items-center">
                 <button
                   type="submit"
-                  class="bg-green-400 transition duration-200 border-2 border-black p-2 rounded-lg hover:bg-green-600 px-6"
+                  class="bg-green-400 transition duration-200 border-2 border-grey p-2 rounded-lg hover:bg-green-600 px-6"
                 >
                   Add
                 </button>
@@ -83,7 +83,7 @@
           <div class="flex flex-col justify-center items-center gap-3 pt-4">
             <% if (messages && messages.error && messages.error.length > 0) { %>
               <% for(var i=0; i<messages.error.length; i++) {%>
-                <div class="bg-red-300 text-red-900 font-semibold p-2 rounded-lg shadow"> <%= messages.error[i] %></div>
+                <div class="bg-red-300 text-red-800 font-bold p-2 rounded-lg shadow"> <%= messages.error[i] %></div>
               <% } %>
             <% } %>
           </div>
@@ -94,7 +94,7 @@
         <div class="flex flex-col justify-center items-center p-4">
             <div class="flex flex-col gap-4 justify-center w-full p-4">
             <% if (options.length === 0) { %>
-                <h1 class="text-2xl flex justify-center text-gray-600 font-semibold">No options added</h1>
+                <h1 class="text-2xl flex justify-center text-gray-700 font-bold">No options added</h1>
             <% } %>
             <% for (var i=0; i<options.length; i++) { %>
                 <div class="flex justify-between gap-6">
