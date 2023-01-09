@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Edit Election | Online Voting Platform</title>
+    <title> Please Edit An Election | Online Voting Platform</title>
     <meta name="csrf-token" content="<%= csrf %>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
@@ -28,7 +28,7 @@
       }
     </script>
   </head>
-  <body class="bg-gradient-to-tl from-gray-200 to-green-500 min-h-screen w-full">
+  <body class="bg-gradient-to-tl from-black-300 to-green-600 min-h-screen w-full">
     <div class="flex justify-center text-blue-800">
       <%- include ('header') %>
     </div>
@@ -42,7 +42,7 @@
             </p>
           </div>
           <a
-            class="text-red-500 hover:bg-red-100 transition duration-200 border-2 border-red-500 p-2 rounded-lg"
+            class="text-blue-500 hover:bg-blue-100 transition duration-200 border-2 border-blue-500 p-2 rounded-lg"
             href="/signout"
             >Sign Out</a
           >
@@ -68,7 +68,7 @@
               </div>
               <button
                 type="submit"
-                class="bg-blue-700 hover:bg-blue-600 font-bold text-white p-2 rounded-lg flex justify-center px-6"
+                class="bg-blue-700 hover:bg-blue-600 font-semibold text-white p-2 rounded-lg flex justify-center px-6"
               >
                 Update
               </button>
@@ -79,7 +79,7 @@
           <div class="flex flex-col justify-center items-center gap-3 pt-4">
             <% if (messages && messages.error && messages.error.length > 0) { %>
               <% for(var i=0; i<messages.error.length; i++) {%>
-                <div class="bg-red-300 text-red-900 font-semibold p-2 rounded-lg shadow"> <%= messages.error[i] %></div>
+                <div class="bg-blue-300 text-blue-900 font-bold p-2 rounded-lg shadow"> <%= messages.error[i] %></div>
               <% } %>
             <% } %>
           </div>
