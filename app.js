@@ -42,7 +42,7 @@ app.use(function (request, response, next) {
 app.use(passport.initialize());
 app.use(passport.session());
 
-// admin ID passport session
+// using admin ID passport session
 passport.use(
   "user-local",
   new localStrategy(
@@ -70,7 +70,7 @@ passport.use(
   )
 );
 
-// voter ID passport session
+// use voter ID passport session
 passport.use(
   "voter-local",
   new localStrategy(
@@ -109,17 +109,17 @@ passport.deserializeUser((obj, done) => {
   done(null, obj);
 });
 
-// home page
+// create home page
 app.get("/", (request, response) => {
   response.render("home");
 });
 
-// signup page frontend
+// request signup page frontend
 app.get("/signup", (request, response) => {
   response.render("signup", { csrf: request.csrfToken() });
 });
 
-// login page frontend
+// request login page front-end
 app.get("/login", (request, response) => {
   if (request.user && request.user.id) {
     return response.redirect("/home");
@@ -127,7 +127,7 @@ app.get("/login", (request, response) => {
   response.render("login", { csrf: request.csrfToken() });
 });
 
-// admin home page frontend
+// admin home page front-end
 app.get(
   "/home",
   connectEnsureLogin.ensureLoggedIn(),
@@ -160,7 +160,7 @@ app.get(
   }
 );
 
-// election home page
+// making an election home-page
 app.get(
   "/election/:id",
   connectEnsureLogin.ensureLoggedIn(),
@@ -182,7 +182,7 @@ app.get(
     const voters = await Voter.findAll({
       where: { electionID: request.params.id },
     });
-
+// election-home
     response.render("electionHome", {
       election: elections,
       username: admin.name,
@@ -193,7 +193,7 @@ app.get(
   }
 );
 
-// delete election
+// deleting an election
 app.delete(
   "/election/:id",
   connectEnsureLogin.ensureLoggedIn(),
@@ -206,12 +206,12 @@ app.delete(
       return response.redirect("/home");
     }
 
-    // get all questions of that election
+    // you canget all questions of that election
     const questions = await question.findAll({
       where: { electionID: request.params.id },
     });
 
-    // delete all options and then questions of that election
+    // you can delete all options and then questions of that election
     questions.forEach(async (Question) => {
       const options = await Option.findAll({
         where: { questionID: Question.id },
@@ -222,7 +222,7 @@ app.delete(
       await question.destroy({ where: { id: Question.id } });
     });
 
-    // delete voters of the election
+    // deleting a voters of the election
     const voters = await Voter.findAll({
       where: { electionID: request.params.id },
     });
@@ -240,7 +240,7 @@ app.delete(
   }
 );
 
-// create new election
+// creating a new election
 app.post(
   "/election",
   connectEnsureLogin.ensureLoggedIn(),
@@ -252,7 +252,7 @@ app.post(
 
     const loggedInAdminID = request.user.id;
 
-    // validation checks
+    // checking validation 
     const election = await Election.findOne({
       where: { adminID: loggedInAdminID, name: request.body.name },
     });
@@ -271,7 +271,7 @@ app.post(
   }
 );
 
-// create new election frontend
+// create a new election frontend
 app.get(
   "/elections/new",
   connectEnsureLogin.ensureLoggedIn(),
@@ -286,7 +286,7 @@ app.get(
   }
 );
 
-// edit election frontend
+// now edit election frontend
 app.get(
   "/election/:id/edit",
   connectEnsureLogin.ensureLoggedIn(),
@@ -309,7 +309,7 @@ app.get(
   }
 );
 
-// update election name
+// updating a election name
 app.post(
   "/election/:id",
   connectEnsureLogin.ensureLoggedIn(),
@@ -323,7 +323,7 @@ app.post(
       });
     }
 
-    // validation checks
+    // checking  validation
     if (request.body.name.trim().length === 0) {
       request.flash("error", "Election name can't be empty");
       return response.redirect(`/election/${request.params.id}/edit`);
@@ -358,7 +358,7 @@ app.post(
   }
 );
 
-// create new admin user
+// create an new admin user
 app.post("/users", async (request, response) => {
   // validation checks
   if (request.body.email.trim().length === 0) {
@@ -381,14 +381,14 @@ app.post("/users", async (request, response) => {
     return response.redirect("/signup");
   }
 
-  // check if email already exists
+  // check if email already exists Then
   const admin = await Admin.findOne({ where: { email: request.body.email } });
   if (admin) {
     request.flash("error", "Email already exists");
     return response.redirect("/signup");
   }
 
-  // hasing the password
+  // now we hasing the password
   const hashpwd = await bcrypt.hash(request.body.password, saltRounds); // take time so add await
   try {
     const user = await Admin.create({
@@ -411,7 +411,7 @@ app.post("/users", async (request, response) => {
   }
 });
 
-// get questions of election
+// getting a questions of election
 app.get(
   "/election/:id/questions",
   connectEnsureLogin.ensureLoggedIn(),
@@ -424,7 +424,7 @@ app.get(
   }
 );
 
-// add question to election
+// adding question to election
 app.post(
   "/election/:id/questions/add",
   connectEnsureLogin.ensureLoggedIn(),
@@ -447,7 +447,7 @@ app.post(
       });
     }
 
-    // validation checks
+    // checking  validation
     if (request.body.title.trim().length === 0) {
       request.flash("error", "Question title can't be empty");
       return response.redirect(`/election/${request.params.id}`);
@@ -475,7 +475,7 @@ app.post(
   }
 );
 
-// delete option for question
+// now a delete option for question
 app.delete(
   "/election/:electionID/question/:questionID/option/:id",
   connectEnsureLogin.ensureLoggedIn(),
@@ -506,7 +506,7 @@ app.delete(
   }
 );
 
-// delete question
+// deleting a question
 app.delete(
   "/election/:id/question/:questiondID",
   connectEnsureLogin.ensureLoggedIn(),
@@ -526,7 +526,7 @@ app.delete(
         where: { questionID: request.params.questiondID },
       });
 
-      // delete question
+      // deleting a question
       await question.destroy({ where: { id: request.params.questiondID } });
       return response.json({ ok: true });
     } catch (error) {
@@ -567,15 +567,11 @@ app.get(
   }
 );
 
-// get options
+// getting an options
 app.get(
   "/election/:electionID/question/:questionID/options",
   connectEnsureLogin.ensureLoggedIn(),
   async (request, response) => {
-    // const adminID = request.user.id;
-    // const election = await Election.findByPk(request.params.electionID);
-
-    // const questions = await question.findByPk(request.params.questionID);
 
     const options = await Option.findAll({
       where: { questionID: request.params.questionID },
@@ -584,7 +580,7 @@ app.get(
   }
 );
 
-// add option to questions
+// adding an option to questions
 app.post(
   "/election/:electionID/question/:questionID/options/add",
   connectEnsureLogin.ensureLoggedIn(),
@@ -640,7 +636,7 @@ app.post(
   }
 );
 
-// launch election
+// launch an election
 app.get(
   "/election/:id/launch",
   connectEnsureLogin.ensureLoggedIn(),
@@ -657,7 +653,7 @@ app.get(
       });
     }
 
-    // ensure that there is atelast 1 question in the election
+    // we have to ensure that there must be  atleast 1 question in the election
     const questions = await question.findAll({
       where: { electionID: request.params.id },
     });
@@ -666,7 +662,7 @@ app.get(
       return response.redirect(`/election/${request.params.id}`);
     }
 
-    // ensure that each question has alteast 2 options
+    // now ensure that each question has alteast 2 options
     for (let i = 0; i < questions.length; i++) {
       const options = await Option.findAll({
         where: { questionID: questions[i].id },
@@ -680,7 +676,7 @@ app.get(
       }
     }
 
-    // ensure that there is atleast 1 voter
+    // now ensure that there is atleast 1 voter
     const voters = await Voter.findAll({
       where: { electionID: request.params.id },
     });
@@ -699,7 +695,7 @@ app.get(
   }
 );
 
-// end election
+// ending an election
 app.put(
   "/election/:id/end",
   connectEnsureLogin.ensureLoggedIn(),
@@ -732,7 +728,7 @@ app.put(
   }
 );
 
-// election preview
+// election an preview
 app.get(
   "/election/:id/preview",
   connectEnsureLogin.ensureLoggedIn(),
@@ -768,7 +764,7 @@ app.get(
   }
 );
 
-// edit question
+// editing a  question
 app.post(
   "/election/:electionID/question/:questionID/update",
   connectEnsureLogin.ensureLoggedIn(),
@@ -1247,8 +1243,6 @@ app.get(
     }
 
     const election = await Election.findByPk(request.params.id);
-
-    // if admin logged in and not voter logged in
     if (request.user && request.user.id && !request.user.voterID) {
       const adminID = request.user.id;
       const admin = await Admin.findByPk(adminID);
@@ -1291,7 +1285,7 @@ app.get(
   }
 );
 
-// signout admin
+// signout an admin
 app.get("/signout", (request, response) => {
   request.logout((err) => {
     if (err) {
