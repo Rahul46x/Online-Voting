@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title><%= %>Online Voting Platform | Pranshu Aggarwal</title>
+    <title><%= %>Online Voting Platform | Rahul Kumar</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
@@ -10,15 +10,15 @@
       referrerpolicy="no-referrer"
     />
   </head>
-  <body class="bg-gradient-to-tl from-gray-200 to-green-500 min-h-screen w-full">
-    <div class="flex justify-center text-blue-800">
+  <body class="bg-gradient-to-tl from-gray-300 to-green-500 min-h-screen w-full">
+    <div class="flex justify-center text-red-800">
       <%- include ('header') %>
     </div>
     <div class="flex flex-col justify-center items-center p-4">
       <div class="flex flex-col justify-center md:w-2/5 w-full">
         <hr />
         <div class="flex justify-center pb-8">
-          <p class="text-4xl font-semibold pt-4"><%= election.name %> Preview</p>
+          <p class="text-4xl font-bold pt-4"><%= election.name %> Preview</p>
         </div>
 
         <div class="flex flex-col gap-4">
@@ -45,7 +45,7 @@
             <% } %>
         </div>
 
-        <a href="/election/<%= election.id %>" class="flex justify-center mt-8 p-2 rounded-lg bg-purple-500 hover:bg-purple-700 border-2 border-purple-800">Back to Home</a>
+        <a href="/election/<%= election.id %>" class="flex justify-center mt-8 p-2 rounded-lg bg-purple-500 hover:bg-purple-600 border-2 border-purple-800">Back to Home</a>
       </div>
     </div>
   </body>
